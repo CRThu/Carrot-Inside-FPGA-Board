@@ -1,4 +1,15 @@
 # Altium Designer
 
-/Board/*/__Previews/
+/Hardware/*/__Previews/
 **.SchDocPreview
+
+# Quartus
+
+*.v.bak
+/Software/*/*.qws
+/Software/*/db/
+/Software/*/incremental_db/
+/Software/*/simulation/
+/Software/*/output_files/*
+!**.sof
+!**.jic
