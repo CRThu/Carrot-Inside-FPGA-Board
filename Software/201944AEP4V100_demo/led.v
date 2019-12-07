@@ -1,15 +1,15 @@
 module led(
     input   wire        clk_50m,
-    input   wire        reset,
+    input   wire        reset_n,
     output  reg [5:0]   led = 6'b0
     );
     
 
     reg [31:0] cnt = 32'h0;
 
-    always@(posedge clk_50m or negedge reset)
+    always@(posedge clk_50m or negedge reset_n)
     begin
-        if(!reset)
+        if(!reset_n)
         begin
             cnt = 32'h0;
             led = 6'b0;
