@@ -13,7 +13,7 @@ module uart_tx_path(
     parameter [31:0] BAUD_RATE_CNT_HALF		= BAUD_RATE_CNT / 2;		// half of baud rate
 
     reg [31:0]  baud_rate_counter = 32'b0;  // baud rate counter
-    reg         baud_bps = 1'b0;           // send bit signal
+    reg         baud_bps = 1'b0;            // send bit signal
     reg [9:0]   send_byte = 10'b1111111111;	// send byte : 1bit start + 8bit byte + 1bit end
     reg [3:0]   bit_cursor = 4'b0;          // send cursor
     reg         uart_send_flag = 1'b0;      // data send flag
