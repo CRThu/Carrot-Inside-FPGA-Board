@@ -20,7 +20,7 @@ module top(
     wire [7:0]  uart_rx_data;
     wire        uart_rx_done;
     /*  UART Control Bit  */
-    reg [5:0]   led_bit_reg = 6'h0;
+    reg [5:0]   led_bit_reg = 6'b000000;
     assign led = led_bit_reg;
     
     
@@ -37,6 +37,7 @@ module top(
     /*  Timer  */
     timer u_timer(
         .clk_50m        (   clk_50m         ),
+        .reset_n        (   reset_n         ),
         .second         (   timer_second    ),
         .pps            (   timer_pps       )
         );
@@ -70,17 +71,24 @@ module top(
     end
     
     /*  Receive byte to control led  */
-    always@(posedge uart_rx_done)
+    always@(posedge uart_rx_done or negedge reset_n)
     begin
-        case(uart_rx_data)
-            6'h00:  led_bit_reg[0]=~led_bit_reg[0];
-            6'h01:  led_bit_reg[1]=~led_bit_reg[1];
-            6'h02:  led_bit_reg[2]=~led_bit_reg[2];
-            6'h03:  led_bit_reg[3]=~led_bit_reg[3];
-            6'h04:  led_bit_reg[4]=~led_bit_reg[4];
-            6'h05:  led_bit_reg[5]=~led_bit_reg[5];
-            default: ;
-        endcase
+        if(!reset_n)
+        begin
+            led_bit_reg = 6'b000000;
+        end
+        else
+        begin
+            case(uart_rx_data)
+                6'h00:  led_bit_reg[0] = ~led_bit_reg[0];
+                6'h01:  led_bit_reg[1] = ~led_bit_reg[1];
+                6'h02:  led_bit_reg[2] = ~led_bit_reg[2];
+                6'h03:  led_bit_reg[3] = ~led_bit_reg[3];
+                6'h04:  led_bit_reg[4] = ~led_bit_reg[4];
+                6'h05:  led_bit_reg[5] = ~led_bit_reg[5];
+                default: ;
+            endcase
+        end
     end
     
 endmodule

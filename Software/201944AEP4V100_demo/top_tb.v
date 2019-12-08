@@ -1,4 +1,5 @@
-`timescale 10ns/10ns
+`timescale 100us/100us
+// use __SIM_CLK_DIV__ in timer when simulation
 
 module top_tb;
 
@@ -25,9 +26,9 @@ module top_tb;
         
     initial
     begin
-        #5 reset_n = 1'b0;
-        #5 reset_n = 1'b1;
-        #1000000 $stop;
+        #25000 reset_n = 1'b0;
+        #5000 reset_n = 1'b1;
+        #70000 $stop;
     end
 
 endmodule
