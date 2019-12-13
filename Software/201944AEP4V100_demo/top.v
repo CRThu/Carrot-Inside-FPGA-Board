@@ -23,7 +23,6 @@ module top(
     reg [5:0]   led_bit_reg = 6'b000000;
     assign led = led_bit_reg;
     
-    
     /*  Instance  */
     /*  LED Flow  */
     `ifdef __LED_FLOW__
