@@ -1,4 +1,5 @@
 //`define __LED_FLOW__
+//`define __LED_UART__
 
 module top(
     /*  clock and reset_n  */
@@ -70,24 +71,39 @@ module top(
     end
     
     /*  Receive byte to control led  */
-    always@(posedge uart_rx_done or negedge reset_n)
-    begin
-        if(!reset_n)
+    /*  LED UART  */
+    `ifdef __LED_UART__
+        always@(posedge uart_rx_done or negedge reset_n)
         begin
-            led_bit_reg = 6'b000000;
+            if(!reset_n)
+            begin
+                led_bit_reg = 6'b000000;
+            end
+            else
+            begin
+                case(uart_rx_data)
+                    6'h00:  led_bit_reg[0] = ~led_bit_reg[0];
+                    6'h01:  led_bit_reg[1] = ~led_bit_reg[1];
+                    6'h02:  led_bit_reg[2] = ~led_bit_reg[2];
+                    6'h03:  led_bit_reg[3] = ~led_bit_reg[3];
+                    6'h04:  led_bit_reg[4] = ~led_bit_reg[4];
+                    6'h05:  led_bit_reg[5] = ~led_bit_reg[5];
+                    default: ;
+                endcase
+            end
         end
-        else
-        begin
-            case(uart_rx_data)
-                6'h00:  led_bit_reg[0] = ~led_bit_reg[0];
-                6'h01:  led_bit_reg[1] = ~led_bit_reg[1];
-                6'h02:  led_bit_reg[2] = ~led_bit_reg[2];
-                6'h03:  led_bit_reg[3] = ~led_bit_reg[3];
-                6'h04:  led_bit_reg[4] = ~led_bit_reg[4];
-                6'h05:  led_bit_reg[5] = ~led_bit_reg[5];
-                default: ;
-            endcase
-        end
-    end
+    `endif
+
+    ip_pll	u_ip_pll (
+        .areset     ( ~reset_n      ),
+        .inclk0     ( clk_50m       ),
+        .c0         ( clk_sd        ),
+        .c1         ( clk_sd_n      ),
+        .locked     ( pll_locked    )
+	);
+
+    sd_spi_controller u_sd_spi_controller(
+
+    );
     
 endmodule
