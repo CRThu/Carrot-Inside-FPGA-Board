@@ -60,8 +60,8 @@ module sd_spi_controller(
     end
     
     /*  Instance  */
-    sd_spi_init u_sd_spi_init();
-    sd_spi_write u_sd_spi_write();
-    sd_spi_read u_sd_spi_read();
+    //sd_spi_init u_sd_spi_init();
+    //sd_spi_write u_sd_spi_write();
+    //sd_spi_read u_sd_spi_read();
     
 endmodule

@@ -39,7 +39,7 @@ module sd_spi_data_gen(
     // sd_init_delay generator
     always @(posedge clk_50m or negedge reset_n)
     begin
-        if(!rst_n)
+        if(!reset_n)
         begin
             sd_init_done_delay1 <= 1'b0;
             sd_init_done_delay2 <= 1'b0;
