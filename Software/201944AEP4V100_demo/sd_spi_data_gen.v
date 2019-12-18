@@ -1,7 +1,7 @@
 `define TEST_SEC_ADDR 32'd2000
 
 module sd_spi_data_gen(
-    input wire          clk_50m         ,   // clock
+    input wire          clk_sd          ,   // clock
     input wire          reset_n         ,   // reset
     input wire          sd_init_done    ,   // sd initial done
     /*  Write  */
@@ -37,7 +37,7 @@ module sd_spi_data_gen(
     assign error_flag = (rd_correct_cnt == (9'd256)) ? 1'b0 : 1'b1;
     
     // sd_init_done_delay generator
-    always @(posedge clk_50m or negedge reset_n)
+    always @(posedge clk_sd or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -52,7 +52,7 @@ module sd_spi_data_gen(
     end
     
     // wr_start_en control
-    always @(posedge clk_50m or negedge reset_n)
+    always @(posedge clk_sd or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -74,7 +74,7 @@ module sd_spi_data_gen(
     end
 
     // write
-    always @(posedge clk or negedge reset_n)
+    always @(posedge clk_sd or negedge reset_n)
     begin
         if(!reset_n)
             wr_data_buf <= 16'b0;
@@ -83,7 +83,7 @@ module sd_spi_data_gen(
     end
 
     // wr_busy
-    always @(posedge clk or negedge reset_n)
+    always @(posedge clk_sd or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -98,7 +98,7 @@ module sd_spi_data_gen(
     end
 
     // read
-    always @(posedge clk or negedge reset_n)
+    always @(posedge clk_sd or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -118,7 +118,7 @@ module sd_spi_data_gen(
     end
 
     // rd_correct_cnt for error_flag
-    always @(posedge clk_50m or negedge reset_n) begin
+    always @(posedge clk_sd or negedge reset_n) begin
         if(!reset_n)
         begin
             rd_comp_data <= 16'd0;

@@ -13,7 +13,7 @@ module top_tb;
     
 
     top u_top(
-        .clk_50m        (   clk_50m         ),
+        .clk_in         (   clk_50m         ),
         .reset_n        (   reset_n         ),
         .led            (   led             ),
         .uart_tx_path   (   uart_tx_path    ),

@@ -1,6 +1,6 @@
 module sd_spi_controller(
-    input wire          clk_sd         ,
-    input wire          clk_sd_n       ,
+    input wire          clk_sd          ,
+    input wire          clk_sd_n        ,
     input wire          reset_n         ,
     /*  SPI  */
     input wire          sd_spi_miso     ,
@@ -32,30 +32,30 @@ module sd_spi_controller(
     wire rd_sd_mosi   ;         // mosi when read
 
     // sd clk mux
-    assign sd_spi_clk = ( !sd_init_done ) ? sd_spi_init_clk : clk_50m_n;
+    assign sd_spi_clk = ( !sd_init_done ) ? sd_spi_init_clk : clk_sd_n;
 
     // sd signal mux
     always @(*)
     begin
         if(!sd_init_done)
         begin
-            sd_cs = sd_spi_init_cs;
-            sd_mosi = sd_spi_init_mosi;
+            sd_spi_cs = sd_spi_init_cs;
+            sd_spi_mosi = sd_spi_init_mosi;
         end
         else if(wr_busy)
         begin
-            sd_cs = wr_sd_cs;
-            sd_mosi = wr_sd_mosi;
+            sd_spi_cs = wr_sd_cs;
+            sd_spi_mosi = wr_sd_mosi;
         end
         else if(rd_busy)
         begin
-            sd_cs = rd_sd_cs;
-            sd_mosi = rd_sd_mosi;
+            sd_spi_cs = rd_sd_cs;
+            sd_spi_mosi = rd_sd_mosi;
         end
         else
         begin
-            sd_cs = 1'b1;
-            sd_mosi = 1'b1;
+            sd_spi_cs = 1'b1;
+            sd_spi_mosi = 1'b1;
         end
     end
     

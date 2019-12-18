@@ -1,9 +1,10 @@
-//`define __LED_FLOW__
+`define __LED_FLOW__
 //`define __LED_UART__
+//`define __LED_SD_TEST__
 
 module top(
     /*  clock and reset_n  */
-    input   wire        clk_50m,
+    input   wire        clk_in,
     input   wire        reset_n,
     /*  LED  */
     output  wire [5:0]  led,
@@ -12,29 +13,47 @@ module top(
     input   wire        uart_rx_path    // to CH340 TXD
 );
 
+    /*  PLL  */
+    wire clk_50m;
+    wire clk_sd;
+    wire clk_sd_n;
+    wire pll_locked;
+    wire reset_pll_n = reset_n & pll_locked;
+    
     /*  Timer  */
-    wire [15:0] timer_second;
-    wire        timer_pps;
+    wire    [15:0]  timer_second;
+    wire            timer_pps;
     /*  UART  */
-    reg [7:0]   uart_tx_data = 8'b0;
-    reg         uart_tx_enable = 1'b0;
-    wire [7:0]  uart_rx_data;
-    wire        uart_rx_done;
+    reg     [7:0]   uart_tx_data = 8'b0;
+    reg             uart_tx_enable = 1'b0;
+    wire    [7:0]   uart_rx_data;
+    wire            uart_rx_done;
     
     /*  Instance  */
+    /*  PLL  */
+    ip_pll	u_ip_pll (
+        .areset         (   ~reset_n        ),
+        .inclk0         (   clk_in          ),      // clk_in = 50MHz
+        .c0             (   clk_50m         ),      // c0 = 50MHz @ 0deg
+        .c1             (   clk_sd          ),      // c1 = 20MHz @ 0deg
+        .c2             (   clk_sd_n        ),      // c2 = 20MHz @ 180deg
+        .locked         (   pll_locked      )
+	);
+    
     /*  LED Flow  */
     `ifdef __LED_FLOW__
         led u_led(
             .clk_50m        (   clk_50m         ),
-            .reset_n        (   reset_n         ),
+            .reset_n        (   reset_pll_n     ),
             .led            (   led             )
-            );
+        );
     `endif
+    
     
     /*  Timer  */
     timer u_timer(
         .clk_50m        (   clk_50m         ),
-        .reset_n        (   reset_n         ),
+        .reset_n        (   reset_pll_n     ),
         .second         (   timer_second    ),
         .pps            (   timer_pps       )
         );
@@ -69,14 +88,14 @@ module top(
     
     /*  Receive byte to control led  */
     /*  LED UART  */
-    /*  UART Control Bit  */
-    reg [5:0]   led_bit_reg = 6'b000000;
-    assign led = led_bit_reg;
-    
     `ifdef __LED_UART__
-        always@(posedge uart_rx_done or negedge reset_n)
+        /*  UART Control Bit  */
+        reg [5:0]   led_bit_reg = 6'b000000;
+        assign led = led_bit_reg;
+        
+        always@(posedge uart_rx_done or negedge reset_pll_n)
         begin
-            if(!reset_n)
+            if(!reset_pll_n)
             begin
                 led_bit_reg = 6'b000000;
             end
@@ -94,34 +113,28 @@ module top(
             end
         end
     `endif
+    
+    `ifdef __LED_SD_TEST__
+        sd_spi_data_gen u_sd_spi_data_gen(
+            .clk_sd         (clk_sd         ),      // clock
+            .reset_n        (reset_pll_n    ),      // reset
+            .sd_init_done   (sd_init_done   ),      // sd initial done
+            .wr_busy        (wr_busy        ),      // write busy
+            .wr_req         (wr_req         ),      // write request
+            .wr_start_en    (wr_start_en    ),      // start writing data
+            .wr_sec_addr    (wr_sec_addr    ),      // write sector address
+            .wr_data        (wr_data        ),      // write data
+            .rd_en          (rd_en          ),      // read enable
+            .rd_data        (rd_data        ),      // read data
+            .rd_start_en    (rd_start_en    ),      // start reading data
+            .rd_sec_addr    (rd_sec_addr    ),      // read sector address
+            .error_flag     (error_flag     )       // sd error flag
+        );
+        
+        sd_spi_controller u_sd_spi_controller(
 
-    
-    ip_pll	u_ip_pll (
-        .areset     ( ~reset_n      ),
-        .inclk0     ( clk_50m       ),
-        .c0         ( clk_sd        ),
-        .c1         ( clk_sd_n      ),
-        .locked     ( pll_locked    )
-	);
-    
-    sd_spi_data_gen u_sd_spi_data_gen(
-        .clk_50m         (clk_sd),                  // clock
-        .reset_n         (reset_n & pll_locked),    // reset
-        .sd_init_done    (sd_init_done),            // sd initial done
-        .wr_busy         (wr_busy),                 // write busy
-        .wr_req          (wr_req),                  // write request
-        .wr_start_en     (wr_start_en),             // start writing data
-        .wr_sec_addr     (wr_sec_addr),             // write sector address
-        .wr_data         (wr_data),                 // write data
-        .rd_en           (rd_en),                   // read enable
-        .rd_data         (rd_data),                 // read data
-        .rd_start_en     (rd_start_en),             // start reading data
-        .rd_sec_addr     (rd_sec_addr),             // read sector address
-        .error_flag      (error_flag)               // sd error flag
-    );
-    
-    sd_spi_controller u_sd_spi_controller(
-
-    );
+        );
+        
+    `endif
     
 endmodule

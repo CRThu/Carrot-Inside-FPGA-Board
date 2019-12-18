@@ -16,8 +16,8 @@ module sd_spi_led_alarm
     
     assign led = {4'b0, sd_init_done, led_error};
 
-    always @(posedge clk or negedge rst_n) begin
-        if(!rst_n) begin
+    always @(posedge clk or negedge reset_n) begin
+        if(!reset_n) begin
             div_cnt <= 25'd0;
             led_error <= 1'b0;
         end

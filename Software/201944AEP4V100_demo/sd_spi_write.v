@@ -14,22 +14,21 @@ module sd_spi_write(
     output reg          wr_req
 );
 
-    parameter HEAD_BYTE = 8'hFE;
+    parameter WRITE_SECTOR_START_BYTE = 8'hFE;
 
-    
     reg             wr_en_delay0;
     reg             wr_en_delay1;
     wire            pos_wr_en;
 
     // respond data
-    reg             re_en;
-    reg     [7:0]   re_data;
-    reg             re_flag;
-    reg     [5:0]   re_bit_cnt;
+    reg             res_en;
+    reg     [7:0]   res_data;
+    reg             res_flag;
+    reg     [5:0]   res_wr_bit_cnt;
     // command
-    reg     [3:0]   wr_ctrl_cnt;
+    reg     [3:0]   wr_fsm_state;
     reg     [47:0]  cmd_wr;
-    reg     [5:0]   cmd_bit_cnt;
+    reg     [5:0]   cmd_wr_bit_cnt;
 
     // write
     reg     [3:0]   wr_bit_cnt;
@@ -61,33 +60,33 @@ module sd_spi_write(
     begin
         if(!reset_n)
         begin
-            re_en <= 1'b0;
-            re_data <= 8'd0;
-            re_flag <= 1'b0;
-            re_bit_cnt <= 6'd0;
+            res_en <= 1'b0;
+            res_data <= 8'd0;
+            res_flag <= 1'b0;
+            res_wr_bit_cnt <= 6'd0;
         end
         else
         begin
-            if(sd_spi_miso == 1'b0 && re_flag == 1'b0)
+            if(sd_spi_miso == 1'b0 && res_flag == 1'b0)
             begin
-                re_flag <= 1'b1;
-                re_data <= {re_data[6:0], sd_spi_miso};
-                re_bit_cnt <= re_bit_cnt + 6'd1;
-                re_en <= 1'b0;
+                res_flag <= 1'b1;
+                res_data <= {res_data[6:0], sd_spi_miso};
+                res_wr_bit_cnt <= res_wr_bit_cnt + 6'd1;
+                res_en <= 1'b0;
             end
-            else if(re_flag)
+            else if(res_flag)
             begin
-                re_data <= {re_data[6:0], sd_spi_miso};
-                re_bit_cnt <= re_bit_cnt + 6'd1;
-                if(re_bit_cnt == 6'd7)
+                res_data <= {res_data[6:0], sd_spi_miso};
+                res_wr_bit_cnt <= res_wr_bit_cnt + 6'd1;
+                if(res_wr_bit_cnt == 6'd7)
                 begin
-                    re_flag <= 1'b0;
-                    re_bit_cnt <= 6'd0;
-                    re_en <= 1'b1;
+                    res_flag <= 1'b0;
+                    res_wr_bit_cnt <= 6'd0;
+                    res_en <= 1'b1;
                 end
             end
             else
-                re_en <= 1'b0;
+                res_en <= 1'b0;
         end
     end
 
@@ -106,25 +105,118 @@ module sd_spi_write(
     begin
         if(!reset_n)
         begin
-            sd_cs <= 1'b1;
+            sd_spi_cs <= 1'b1;
             sd_spi_mosi <= 1'b1;
-            wr_ctrl_cnt <= 4'd0;
+            wr_fsm_state <= 4'd0;
             wr_busy <= 1'b0;
             cmd_wr <= 48'd0;
-            cmd_bit_cnt <= 6'd0;
-            bit_cnt <= 4'd0;
-            wr_data_t <= 16'd0;
-            data_cnt <= 9'd0;
+            cmd_wr_bit_cnt <= 6'd0;
+            wr_bit_cnt <= 4'd0;
+            wr_data_buf <= 16'd0;
+            wr_data_cnt <= 9'd0;
             wr_req <= 1'b0;
             detect_done_flag <= 1'b0;
         end
         else
         begin
-            
+            wr_req <= 1'b0;
+            case (wr_fsm_state)
+                4'd0:   // prepare for send command
+                begin
+                    wr_busy <= 1'b0;
+                    sd_spi_cs <= 1'b1;
+                    sd_spi_mosi <= 1'b1;
+                    if(pos_wr_en)
+                    begin
+                        // begin
+                        cmd_wr <= {8'h58, wr_sec_addr, 8'hff};  // CMD24
+                        wr_fsm_state <= wr_fsm_state + 4'd1;
+                        wr_busy <= 1'b1;
+                    end
+                end
+                4'd1:   // send command
+                begin
+                    if(cmd_wr_bit_cnt <= 6'd47)
+                    begin
+                        cmd_wr_bit_cnt <= cmd_wr_bit_cnt + 6'd1;
+                        sd_spi_cs <= 1'b0;
+                        sd_spi_mosi <= cmd_wr[6'd47 - cmd_wr_bit_cnt];
+                    end
+                    else
+                    begin
+                        sd_spi_mosi <= 1'b1;
+                        if(res_en)
+                        begin
+                            cmd_wr_bit_cnt <= 6'd0;
+                            wr_bit_cnt <= 4'd1;
+                            wr_fsm_state <= wr_fsm_state + 4'd1;
+                        end
+                    end
+                end
+                4'd2:   // nop and request data to write
+                begin
+                    wr_bit_cnt <= wr_bit_cnt + 4'd1;
+                    if(wr_bit_cnt >= 4'd8 && wr_bit_cnt <= 4'd15)
+                    begin
+                        sd_spi_mosi <= WRITE_SECTOR_START_BYTE[4'd15-wr_bit_cnt];
+                        if(wr_bit_cnt == 4'd14)
+                            wr_req <= 1'b1;
+                        else if(wr_bit_cnt == 4'd15)
+                            wr_fsm_state <= wr_fsm_state + 4'd1;
+                    end
+                end
+                4'd3:   // write sector
+                begin
+                    wr_bit_cnt <= wr_bit_cnt + 4'd1;
+                    if(wr_bit_cnt == 4'd0)
+                    begin
+                        sd_spi_mosi <= wr_data[4'd15-wr_bit_cnt];
+                        wr_data_buf <= wr_data;
+                    end
+                    else
+                        sd_spi_mosi <= wr_data_buf[4'd15-wr_bit_cnt];
+
+                    if((wr_bit_cnt == 4'd14) && (wr_data_cnt <= 9'd255))
+                        wr_req <= 1'b1;     //???
+
+                    if(wr_bit_cnt == 4'd15)
+                    begin
+                        wr_data_cnt <= wr_data_cnt + 9'd1;
+                        if(wr_data_cnt == 9'd255)
+                        begin
+                            wr_data_cnt <= 9'd0;
+                            wr_fsm_state <= wr_fsm_state + 1;
+                        end
+                    end
+                end
+                4'd4:   // 16bit CRC (unchecked)
+                begin
+                    wr_bit_cnt <= wr_bit_cnt + 4'd1;
+                    sd_spi_mosi <= 1'b1;
+                    if(wr_bit_cnt == 4'd15)
+                        wr_fsm_state <= wr_fsm_state + 1; 
+                end
+                4'd5:   // get respond
+                begin
+                    if(res_en)
+                        wr_fsm_state <= wr_fsm_state + 4'd1;
+                end
+                4'd6:   // wait for write busy
+                begin
+                    detect_done_flag <= 1'b1;
+                    if(detect_data == 8'hff)
+                    begin
+                        wr_fsm_state <= wr_fsm_state + 4'd1;
+                        detect_done_flag <= 1'b0;
+                    end
+                end
+                default:    // cs=1, wait 8 clk
+                begin
+                    sd_spi_cs <= 1'b1;
+                    wr_fsm_state <= wr_fsm_state + 4'd1;
+                end 
+            endcase
         end
     end
-
-
-
 
 endmodule // sd_spi_write
