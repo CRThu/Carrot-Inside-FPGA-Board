@@ -20,9 +20,6 @@ module top(
     reg         uart_tx_enable = 1'b0;
     wire [7:0]  uart_rx_data;
     wire        uart_rx_done;
-    /*  UART Control Bit  */
-    reg [5:0]   led_bit_reg = 6'b000000;
-    assign led = led_bit_reg;
     
     /*  Instance  */
     /*  LED Flow  */
@@ -72,6 +69,10 @@ module top(
     
     /*  Receive byte to control led  */
     /*  LED UART  */
+    /*  UART Control Bit  */
+    reg [5:0]   led_bit_reg = 6'b000000;
+    assign led = led_bit_reg;
+    
     `ifdef __LED_UART__
         always@(posedge uart_rx_done or negedge reset_n)
         begin
@@ -94,6 +95,7 @@ module top(
         end
     `endif
 
+    
     ip_pll	u_ip_pll (
         .areset     ( ~reset_n      ),
         .inclk0     ( clk_50m       ),
@@ -101,7 +103,23 @@ module top(
         .c1         ( clk_sd_n      ),
         .locked     ( pll_locked    )
 	);
-
+    
+    sd_spi_data_gen u_sd_spi_data_gen(
+        .clk_50m         (clk_sd),                  // clock
+        .reset_n         (reset_n & pll_locked),    // reset
+        .sd_init_done    (sd_init_done),            // sd initial done
+        .wr_busy         (wr_busy),                 // write busy
+        .wr_req          (wr_req),                  // write request
+        .wr_start_en     (wr_start_en),             // start writing data
+        .wr_sec_addr     (wr_sec_addr),             // write sector address
+        .wr_data         (wr_data),                 // write data
+        .rd_en           (rd_en),                   // read enable
+        .rd_data         (rd_data),                 // read data
+        .rd_start_en     (rd_start_en),             // start reading data
+        .rd_sec_addr     (rd_sec_addr),             // read sector address
+        .error_flag      (error_flag)               // sd error flag
+    );
+    
     sd_spi_controller u_sd_spi_controller(
 
     );

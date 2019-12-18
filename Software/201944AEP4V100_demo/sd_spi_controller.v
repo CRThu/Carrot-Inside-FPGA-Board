@@ -1,12 +1,12 @@
 module sd_spi_controller(
-    input wire          clk_50m         ,
-    input wire          clk_50m_n       ,
+    input wire          clk_sd         ,
+    input wire          clk_sd_n       ,
     input wire          reset_n         ,
     /*  SPI  */
-    input wire          sd_miso         ,
-    output wire         sd_clk          ,
-    output reg          sd_cs           ,
-    output reg          sd_mosi         ,
+    input wire          sd_spi_miso     ,
+    output wire         sd_spi_clk      ,
+    output reg          sd_spi_cs       ,
+    output reg          sd_spi_mosi     ,
     /*  Write  */
     input wire          wr_start_en     ,   // start writing data
     input wire  [31:0]  wr_sec_addr     ,   // write sector address
@@ -32,15 +32,15 @@ module sd_spi_controller(
     wire rd_sd_mosi   ;         // mosi when read
 
     // sd clk mux
-    assign sd_clk = (!sd_init_done) ? init_sd_clk : clk_50m_n;
+    assign sd_spi_clk = ( !sd_init_done ) ? sd_spi_init_clk : clk_50m_n;
 
     // sd signal mux
     always @(*)
     begin
         if(!sd_init_done)
         begin
-            sd_cs = init_sd_cs;
-            sd_mosi = init_sd_mosi;
+            sd_cs = sd_spi_init_cs;
+            sd_mosi = sd_spi_init_mosi;
         end
         else if(wr_busy)
         begin
@@ -60,7 +60,17 @@ module sd_spi_controller(
     end
     
     /*  Instance  */
-    //sd_spi_init u_sd_spi_init();
+    sd_spi_init u_sd_spi_init(
+    .clk_sd         (clk_sd),
+    .reset_n        (reset_n),
+
+    .sd_spi_miso    (sd_spi_miso),
+    .sd_spi_clk     (sd_spi_init_clk),  // low speed
+    .sd_spi_cs      (sd_spi_init_cs),
+    .sd_spi_mosi    (sd_spi_init_mosi),
+
+    .sd_init_done   (sd_init_done)
+    );
     //sd_spi_write u_sd_spi_write();
     //sd_spi_read u_sd_spi_read();
     

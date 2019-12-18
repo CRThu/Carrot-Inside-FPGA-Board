@@ -49,11 +49,11 @@ module sd_spi_init(
 
     reg     [12:0]  poweron_cnt;
 
-    /*  receive data  */
-    reg             rd_en;
-    reg     [47:0]  rd_data;
-    reg             rd_flag;
-    reg     [5:0]   rd_bit_cnt;
+    /*  respond data  */
+    reg             re_en;
+    reg     [47:0]  re_data;
+    reg             re_flag;
+    reg     [5:0]   re_bit_cnt;
 
     reg     [5:0]   cmd_bit_cnt;    // cmd send counter
     reg     [15:0]  timeout_cnt;    // timeout counter
@@ -78,9 +78,7 @@ module sd_spi_init(
                 init_div_cnt <= 8'd0;
             end
             else
-            begin
                 init_div_cnt <= init_div_cnt + 1'b1;
-            end
         end
     end
 
@@ -88,18 +86,14 @@ module sd_spi_init(
     always @(posedge init_div_clk or negedge reset_n)
     begin
         if(!reset_n)
-        begin
             poweron_cnt <= 13'd0;
-        end
         else if(current_fsm_state == fsm_state_idle)
         begin
             if(poweron_cnt < POWERON_CLK_NUM)
                 poweron_cnt = poweron_cnt + 1'd1;
         end
         else
-        begin
             poweron_cnt <= 13'd0;
-        end
     end
 
     // get respond data
@@ -107,36 +101,36 @@ module sd_spi_init(
     begin
         if(!reset_n)
         begin
-            rd_en       <= 1'b0;
-            rd_data     <= 48'd0;
-            rd_flag     <= 1'b0;
-            rd_bit_cnt  <= 6'd0;
+            re_en       <= 1'b0;
+            re_data     <= 48'd0;
+            re_flag     <= 1'b0;
+            re_bit_cnt  <= 6'd0;
         end
         else
         begin
             // respond data
-            if(sd_spi_miso == 1'b0 && rd_flag == 1'b0)
+            if(sd_spi_miso == 1'b0 && re_flag == 1'b0)
             begin
                 // first bit received
-                rd_flag         <= 1'b1;
-                rd_data         <= {rd_data[46:0], sd_spi_miso};
-                rd_bit_cnt      <= rd_bit_cnt + 6'd1;
+                re_flag         <= 1'b1;
+                re_data         <= {re_data[46:0], sd_spi_miso};
+                re_bit_cnt      <= re_bit_cnt + 6'd1;
             end
-            else if(rd_flag == 1'b1)
+            else if(re_flag == 1'b1)
             begin
                 // 5 bytes + NOP byte
-                rd_data         <= {rd_data[46:0], sd_spi_miso};
-                rd_bit_cnt      <= rd_bit_cnt + 6'd1;
+                re_data         <= {re_data[46:0], sd_spi_miso};
+                re_bit_cnt      <= re_bit_cnt + 6'd1;
                 // received complete
-                if(rd_bit_cnt == 6'd47)
+                if(re_bit_cnt == 6'd47)
                 begin
-                    rd_flag     <= 1'b0;
-                    rd_bit_cnt  <= 6'd0;
-                    rd_en       <= 1'b1;
+                    re_flag     <= 1'b0;
+                    re_bit_cnt  <= 6'd0;
+                    re_en       <= 1'b1;
                 end
             end
             else
-                rd_en <= 1'b0;
+                re_en <= 1'b0;
         end
     end
 
@@ -170,10 +164,10 @@ module sd_spi_init(
             end
             fsm_state_wait_cmd0:
             begin
-                if(rd_en)
+                if(re_en)
                 begin
                     // R1 = {1Byte RETURN, 5Byte NOP}
-                    if(rd_data[47:40] == 8'h01)
+                    if(re_data[47:40] == 8'h01)
                         next_fsm_state = fsm_state_send_cmd8;
                     else
                         next_fsm_state = fsm_state_idle;
@@ -185,10 +179,10 @@ module sd_spi_init(
             end
             fsm_state_send_cmd8:
             begin
-                if(rd_en)
+                if(re_en)
                 begin
                     // R7 = {5Byte RETURN, 1Byte NOP}
-                    if(rd_data[19:16] == 4'b0001)
+                    if(re_data[19:16] == 4'b0001)
                         next_fsm_state = fsm_state_send_cmd55;
                     else
                         next_fsm_state = fsm_state_idle;
@@ -198,10 +192,10 @@ module sd_spi_init(
             end
             fsm_state_send_cmd55:
             begin
-                if(rd_en)
+                if(re_en)
                 begin
                     // R1 = {1Byte RETURN, 5Byte NOP}
-                    if(rd_data[47:40] == 8'h01)
+                    if(re_data[47:40] == 8'h01)
                         next_fsm_state = fsm_state_send_acmd41;
                     else
                         next_fsm_state = fsm_state_send_cmd55;
@@ -211,10 +205,10 @@ module sd_spi_init(
             end
             fsm_state_send_acmd41:
             begin
-                if(rd_en)
+                if(re_en)
                 begin
                     // R1 = {1Byte RETURN, 5Byte NOP}
-                    if(rd_data[47:40] == 8'h00)
+                    if(re_data[47:40] == 8'h00)
                         next_fsm_state = fsm_state_init_done;
                     else
                         next_fsm_state = fsm_state_send_acmd41;
@@ -267,7 +261,7 @@ module sd_spi_init(
                 begin
                     // wait for respond
                     sd_spi_mosi <= 1'b1;
-                    if(rd_en)
+                    if(re_en)
                         sd_spi_cs <= 1'b1;
                     timeout_cnt <= timeout_cnt + 1'b1;
                     // timeout
@@ -289,7 +283,7 @@ module sd_spi_init(
                     begin
                         // respond
                         sd_spi_mosi <= 1'b1;
-                        if(rd_en)
+                        if(re_en)
                         begin
                             sd_spi_cs <= 1'b1;
                             cmd_bit_cnt <= 6'd0;
@@ -309,7 +303,7 @@ module sd_spi_init(
                     begin
                         // respond
                         sd_spi_mosi <= 1'b1;
-                        if(rd_en)
+                        if(re_en)
                         begin
                             sd_spi_cs <= 1'b1;
                             cmd_bit_cnt <= 6'd0;
@@ -329,7 +323,7 @@ module sd_spi_init(
                     begin
                         // respond
                         sd_spi_mosi <= 1'b1;
-                        if(rd_en)
+                        if(re_en)
                         begin
                             sd_spi_cs <= 1'b1;
                             cmd_bit_cnt <= 6'd0;
