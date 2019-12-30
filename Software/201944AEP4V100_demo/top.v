@@ -80,7 +80,7 @@ module top(
         );
     
     /*  Send second to uart  */
-    always@(timer_pps)
+    always@(posedge clk_50m)
     begin
         if(timer_pps)
         begin
