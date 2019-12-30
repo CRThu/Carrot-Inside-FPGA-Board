@@ -23,13 +23,13 @@ module sd_spi_controller(
     output wire         sd_init_done        // sd initial done
 );
     
-    wire init_sd_clk    ;       // low speed clk when initial
-    wire init_sd_cs     ;       // cs when initial
-    wire init_sd_mosi   ;       // mosi when initial
-    wire wr_sd_cs     ;         // cs when write
-    wire wr_sd_mosi   ;         // mosi when write
-    wire rd_sd_cs     ;         // cs when read
-    wire rd_sd_mosi   ;         // mosi when read
+    wire sd_spi_init_clk    ;           // low speed clk when initial
+    wire sd_spi_init_cs     ;           // cs when initial
+    wire sd_spi_init_mosi   ;           // mosi when initial
+    wire sd_spi_wr_cs       ;           // cs when write
+    wire sd_spi_wr_mosi     ;           // mosi when write
+    wire sd_spi_rd_cs       ;           // cs when read
+    wire sd_spi_rd_mosi     ;           // mosi when read
 
     // sd clk mux
     assign sd_spi_clk = ( !sd_init_done ) ? sd_spi_init_clk : clk_sd_n;

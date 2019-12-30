@@ -1,4 +1,4 @@
-`define TEST_SEC_ADDR 32'd2000
+`define TEST_SEC_ADDR 32'h2000
 
 module sd_spi_data_gen(
     input wire          clk_sd          ,   // clock

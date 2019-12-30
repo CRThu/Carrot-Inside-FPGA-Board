@@ -3,6 +3,7 @@ module sd_led_alarm #(parameter T_DIV = 25'd25_000_000)(
     input wire          reset_n,
 
     output wire [5:0]   led,
+    
     input wire          error_flag,
     input wire          sd_init_done
 );

@@ -128,7 +128,7 @@ module top(
         wire            error_flag;
         
         wire            wr_busy;
-        wire            wire_req;
+        wire            wr_req;
         wire            rd_busy;
         wire            rd_en;
         wire    [15:0]  rd_data;
@@ -174,10 +174,10 @@ module top(
         // led1 on:test success
         //      flash:error_flag=1
         // led2 on:initial done
-        sd_led_alarm #(.T_DIV  (25'd25_000_000))  
+        sd_led_alarm #(.T_DIV  (25'd5_000_000))  
         u_led_alarm(
-            .clock          (   clk_ref         ),
-            .reset_n        (   rst_n           ),
+            .clock          (   clk_sd          ),
+            .reset_n        (   reset_pll_n     ),
             .led            (   led             ),
             .sd_init_done   (   sd_init_done    ),
             .error_flag     (   error_flag      )
