@@ -67,6 +67,7 @@ module sd_spi_write(
         end
         else
         begin
+            // miso = 0, first bit
             if(sd_spi_miso == 1'b0 && res_flag == 1'b0)
             begin
                 res_flag <= 1'b1;
@@ -185,7 +186,7 @@ module sd_spi_write(
                         if(wr_data_cnt == 9'd255)
                         begin
                             wr_data_cnt <= 9'd0;
-                            wr_fsm_state <= wr_fsm_state + 1;
+                            wr_fsm_state <= wr_fsm_state + 4'd1;
                         end
                     end
                 end
@@ -194,7 +195,7 @@ module sd_spi_write(
                     wr_bit_cnt <= wr_bit_cnt + 4'd1;
                     sd_spi_mosi <= 1'b1;
                     if(wr_bit_cnt == 4'd15)
-                        wr_fsm_state <= wr_fsm_state + 1; 
+                        wr_fsm_state <= wr_fsm_state + 4'd1; 
                 end
                 4'd5:   // get respond
                 begin

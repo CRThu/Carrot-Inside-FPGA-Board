@@ -44,13 +44,13 @@ module sd_spi_controller(
         end
         else if(wr_busy)
         begin
-            sd_spi_cs = wr_sd_cs;
-            sd_spi_mosi = wr_sd_mosi;
+            sd_spi_cs = sd_spi_wr_cs;
+            sd_spi_mosi = sd_spi_wr_mosi;
         end
         else if(rd_busy)
         begin
-            sd_spi_cs = rd_sd_cs;
-            sd_spi_mosi = rd_sd_mosi;
+            sd_spi_cs = sd_spi_rd_cs;
+            sd_spi_mosi = sd_spi_rd_mosi;
         end
         else
         begin
@@ -71,7 +71,37 @@ module sd_spi_controller(
 
     .sd_init_done   (sd_init_done)
     );
-    //sd_spi_write u_sd_spi_write();
-    //sd_spi_read u_sd_spi_read();
+    
+    sd_spi_write u_sd_spi_write(
+    .clk_sd         (clk_sd),
+    .clk_sd_n       (clk_sd_n),
+    .reset_n        (reset_n),
+    /*  SPI  */
+    .sd_spi_miso    (sd_spi_miso),
+    .sd_spi_cs      (sd_spi_wr_cs),
+    .sd_spi_mosi    (sd_spi_wr_mosi),
+    /*  Write  */
+    .wr_start_en    (wr_start_en),
+    .wr_sec_addr    (wr_sec_addr),
+    .wr_data        (wr_data),
+    .wr_busy        (wr_busy),
+    .wr_req         (wr_req)
+    );
+    
+    sd_spi_read u_sd_spi_read(
+    .clk_sd         (clk_sd),
+    .clk_sd_n       (clk_sd_n),
+    .reset_n        (reset_n),
+    /*  SPI  */
+    .sd_spi_miso    (sd_spi_miso),
+    .sd_spi_cs      (sd_spi_rd_cs),
+    .sd_spi_mosi    (sd_spi_rd_mosi),
+    /*  Read  */
+    .rd_start_en    (rd_start_en),
+    .rd_sec_addr    (rd_sec_addr),
+    .rd_data        (rd_data),
+    .rd_busy        (rd_busy),
+    .rd_en          (rd_en)
+    );
     
 endmodule

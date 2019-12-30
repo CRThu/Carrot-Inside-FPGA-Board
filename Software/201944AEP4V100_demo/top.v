@@ -1,6 +1,6 @@
-`define __LED_FLOW__
+//`define __LED_FLOW__
 //`define __LED_UART__
-//`define __LED_SD_TEST__
+`define __LED_SD_TEST__
 
 module top(
     /*  clock and reset_n  */
@@ -10,7 +10,12 @@ module top(
     output  wire [5:0]  led,
     /*  UART  */
     output  wire        uart_tx_path,   // to CH340 RXD
-    input   wire        uart_rx_path    // to CH340 TXD
+    input   wire        uart_rx_path,   // to CH340 TXD
+    /*  SD SPI  */
+    input   wire        sd_spi_miso,
+    output  wire        sd_spi_clk,
+    output  wire        sd_spi_cs,
+    output  wire        sd_spi_mosi
 );
 
     /*  PLL  */
@@ -115,24 +120,67 @@ module top(
     `endif
     
     `ifdef __LED_SD_TEST__
+        wire            wr_start_en;
+        wire    [31:0]  wr_sec_addr;
+        wire    [15:0]  wr_data;
+        wire            rd_start_en;
+        wire    [31:0]  rd_sec_addr;
+        wire            error_flag;
+        
+        wire            wr_busy;
+        wire            wire_req;
+        wire            rd_busy;
+        wire            rd_en;
+        wire    [15:0]  rd_data;
+        wire            sd_init_done;
+        
         sd_spi_data_gen u_sd_spi_data_gen(
-            .clk_sd         (clk_sd         ),      // clock
-            .reset_n        (reset_pll_n    ),      // reset
-            .sd_init_done   (sd_init_done   ),      // sd initial done
-            .wr_busy        (wr_busy        ),      // write busy
-            .wr_req         (wr_req         ),      // write request
-            .wr_start_en    (wr_start_en    ),      // start writing data
-            .wr_sec_addr    (wr_sec_addr    ),      // write sector address
-            .wr_data        (wr_data        ),      // write data
-            .rd_en          (rd_en          ),      // read enable
-            .rd_data        (rd_data        ),      // read data
-            .rd_start_en    (rd_start_en    ),      // start reading data
-            .rd_sec_addr    (rd_sec_addr    ),      // read sector address
-            .error_flag     (error_flag     )       // sd error flag
+            .clk_sd         (   clk_sd          ),      // clock
+            .reset_n        (   reset_pll_n     ),      // reset
+            .sd_init_done   (   sd_init_done    ),      // sd initial done
+            .wr_busy        (   wr_busy         ),      // write busy
+            .wr_req         (   wr_req          ),      // write request
+            .wr_start_en    (   wr_start_en     ),      // start writing data
+            .wr_sec_addr    (   wr_sec_addr     ),      // write sector address
+            .wr_data        (   wr_data         ),      // write data
+            .rd_en          (   rd_en           ),      // read enable
+            .rd_data        (   rd_data         ),      // read data
+            .rd_start_en    (   rd_start_en     ),      // start reading data
+            .rd_sec_addr    (   rd_sec_addr     ),      // read sector address
+            .error_flag     (   error_flag      )       // sd error flag
         );
         
         sd_spi_controller u_sd_spi_controller(
-
+            .clk_sd         (   clk_sd          ),
+            .clk_sd_n       (   clk_sd_n        ),
+            .reset_n        (   reset_pll_n     ),
+            .sd_spi_miso    (   sd_spi_miso     ),
+            .sd_spi_clk     (   sd_spi_clk      ),
+            .sd_spi_cs      (   sd_spi_cs       ),
+            .sd_spi_mosi    (   sd_spi_mosi     ),
+            .wr_start_en    (   wr_start_en     ),      // start writing data
+            .wr_sec_addr    (   wr_sec_addr     ),      // write sector address
+            .wr_data        (   wr_data         ),      // write data
+            .wr_busy        (   wr_busy         ),      // write busy
+            .wr_req         (   wr_req          ),      // write request
+            .rd_start_en    (   rd_start_en     ),      // start reading data
+            .rd_sec_addr    (   rd_sec_addr     ),      // read sector address
+            .rd_busy        (   rd_busy         ),      // read busy
+            .rd_en          (   rd_en           ),      // read enable
+            .rd_data        (   rd_data         ),      // read data
+            .sd_init_done   (   sd_init_done    )       // sd initial done
+        );
+        
+        // led1 on:test success
+        //      flash:error_flag=1
+        // led2 on:initial done
+        sd_led_alarm #(.T_DIV  (25'd25_000_000))  
+        u_led_alarm(
+            .clock          (   clk_ref         ),
+            .reset_n        (   rst_n           ),
+            .led            (   led             ),
+            .sd_init_done   (   sd_init_done    ),
+            .error_flag     (   error_flag      )
         );
         
     `endif
