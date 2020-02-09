@@ -1,9 +1,11 @@
 module uart_rx_path(
 	input wire          clk_in,
-	input wire          uart_rx_path,
-
+    
 	output reg  [7:0]   uart_rx_data = 8'b0,
-	output reg          uart_rx_done = 1'b0
+	output reg          uart_rx_done = 1'b0,
+    
+	input wire          uart_rx_path
+
     );
     
     parameter [31:0] CLOCK_FREQ             = 32'd50_000_000;
@@ -54,13 +56,13 @@ module uart_rx_path(
     begin
         uart_rx_done <= 1'b0;
         case(state)
-            1'b0 : 
+            1'b0 :
                 if(!uart_rx_int) // when uart_rx_int = 0, start receiving data
                 begin
                     bps_start <= 1'b1;
                     state <= 1'b1;
                 end
-            1'b1 :			
+            1'b1 :
                 if(baud_bps)	// when data receiving, move data to register
                 begin
                     bit_cursor <= bit_cursor + 1'b1;

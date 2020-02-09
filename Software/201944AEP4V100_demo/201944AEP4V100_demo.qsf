@@ -72,20 +72,6 @@ set_global_assignment -name EDA_TEST_BENCH_FILE top_tb.v -section_id top_tb
 set_location_assignment PIN_98 -to reset_n
 set_location_assignment PIN_11 -to uart_tx_path
 set_location_assignment PIN_10 -to uart_rx_path
-set_global_assignment -name VERILOG_FILE sd_led_alarm.v
-set_global_assignment -name VERILOG_FILE sd_spi_controller.v
-set_global_assignment -name VERILOG_FILE sd_spi_data_gen.v
-set_global_assignment -name VERILOG_FILE sd_spi_write.v
-set_global_assignment -name VERILOG_FILE sd_spi_read.v
-set_global_assignment -name VERILOG_FILE sd_spi_led_alarm.v
-set_global_assignment -name VERILOG_FILE sd_spi_init.v
-set_global_assignment -name VERILOG_FILE uart_tx_path.v
-set_global_assignment -name VERILOG_FILE uart_rx_path.v
-set_global_assignment -name VERILOG_FILE timer.v
-set_global_assignment -name VERILOG_FILE top.v
-set_global_assignment -name VERILOG_FILE led.v
-set_global_assignment -name VERILOG_FILE top_tb.v
-set_global_assignment -name QIP_FILE ip/ip_pll.qip
 set_location_assignment PIN_100 -to sd_spi_cs
 set_location_assignment PIN_103 -to sd_spi_clk
 set_location_assignment PIN_101 -to sd_spi_mosi
@@ -100,6 +86,29 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
-set_global_assignment -name SIGNALTAP_FILE stp1.stp
+set_global_assignment -name USE_SIGNALTAP_FILE timer.stp
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_top.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_test.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_para.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_fifo_ctrl.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_data.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_ctrl.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_controller.v
+set_global_assignment -name VERILOG_FILE src/sdram/sdram_cmd.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_write.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_read.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_led_alarm.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_init.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_data_gen.v
+set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_controller.v
+set_global_assignment -name VERILOG_FILE src/sd_led_alarm.v
+set_global_assignment -name VERILOG_FILE src/top.v
+set_global_assignment -name QIP_FILE src/pll.qip
+set_global_assignment -name VERILOG_FILE src/led_flow.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_tx_path.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_rx_path.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_controller.v
+set_global_assignment -name VERILOG_FILE src/uart/timer.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_test.v
+set_global_assignment -name SIGNALTAP_FILE timer.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

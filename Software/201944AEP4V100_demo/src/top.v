@@ -1,6 +1,6 @@
 //`define __LED_FLOW__
-//`define __LED_UART__
-`define __LED_SD_TEST__
+`define __LED_UART__
+//`define __LED_SD__
 
 module top(
     /*  clock and reset_n  */
@@ -23,103 +23,85 @@ module top(
     wire clk_sd;
     wire clk_sd_n;
     wire pll_locked;
-    wire reset_pll_n = reset_n & pll_locked;
+    wire reset_sys_n = reset_n & pll_locked;
     
-    /*  Timer  */
-    wire    [15:0]  timer_second;
-    wire            timer_pps;
+    /*  LED Wire  */
+    wire [5:0]  led_flow_w;
+    wire [5:0]  led_uart_w;
+    wire [5:0]  led_sd_w;
+    
+    `ifdef __LED_FLOW__
+        assign led = led_flow_w;
+    `endif
+    `ifdef __LED_UART__
+        assign led = led_uart_w;
+    `endif
+    `ifdef __LED_SD__
+        assign led = led_sd_w;
+    `endif
+    
     /*  UART  */
-    reg     [7:0]   uart_tx_data = 8'b0;
-    reg             uart_tx_enable = 1'b0;
-    wire    [7:0]   uart_rx_data;
-    wire            uart_rx_done;
+    wire [7:0]  uart_tx_data;
+    wire        uart_tx_enable;
+    wire [7:0]  uart_rx_data;
+    wire        uart_rx_done;
+    
     
     /*  Instance  */
     /*  PLL  */
-    ip_pll	u_ip_pll (
-        .areset         (   ~reset_n        ),
-        .inclk0         (   clk_in          ),      // clk_in = 50MHz
-        .c0             (   clk_50m         ),      // c0 = 50MHz @ 0deg
-        .c1             (   clk_sd          ),      // c1 = 20MHz @ 0deg
-        .c2             (   clk_sd_n        ),      // c2 = 20MHz @ 180deg
-        .locked         (   pll_locked      )
+    pll	u_pll (
+        .areset         (~reset_n),
+        .inclk0         (clk_in),       // clk_in = 50MHz
+        .c0             (clk_50m),      // c0 = 50MHz @ 0deg
+        .c1             (clk_sd),       // c1 = 20MHz @ 0deg
+        .c2             (clk_sd_n),     // c2 = 20MHz @ 180deg
+        .c3             (),
+        .c4             (),
+        .locked         (pll_locked)
 	);
     
     /*  LED Flow  */
-    `ifdef __LED_FLOW__
-        led u_led(
-            .clk_50m        (   clk_50m         ),
-            .reset_n        (   reset_pll_n     ),
-            .led            (   led             )
-        );
-    `endif
-    
-    
-    /*  Timer  */
-    timer u_timer(
-        .clk_50m        (   clk_50m         ),
-        .reset_n        (   reset_pll_n     ),
-        .second         (   timer_second    ),
-        .pps            (   timer_pps       )
-        );
-    
-    /*  UART_TX  */
-    uart_tx_path u_uart_tx_path(
-        .clk_in         (   clk_50m         ),
-        .uart_tx_data   (   uart_tx_data    ),
-        .uart_tx_enable (   uart_tx_enable  ),
-        .uart_tx_path   (   uart_tx_path    )
-        );
+    led_flow
+    #(
+        .CLK_DIV        (32'd5_000_000)
+    )
+    u_led_flow
+    (
+        .clk_50m        (clk_50m),
+        .reset_n        (reset_sys_n),
         
-    /*  UART_RX  */
-    uart_rx_path u_uart_rx_path(
-        .clk_in         (   clk_50m         ),
-        .uart_rx_path   (   uart_rx_path    ),
-        .uart_rx_data   (   uart_rx_data    ),
-        .uart_rx_done   (   uart_rx_done    )
-        );
+        .led            (led_flow_w)
+    );
     
-    /*  Send second to uart  */
-    always@(posedge clk_50m)
-    begin
-        if(timer_pps)
-        begin
-            uart_tx_data <= timer_second[7:0];
-            uart_tx_enable <= 1'b1;
-        end
-        else
-            uart_tx_enable <= 1'b0;
-    end
-    
-    /*  Receive byte to control led  */
-    /*  LED UART  */
-    `ifdef __LED_UART__
-        /*  UART Control Bit  */
-        reg [5:0]   led_bit_reg = 6'b000000;
-        assign led = led_bit_reg;
+    /*  UART  */
+    uart_controller u_uart_controller(
+        .uart_clk_in    (clk_50m),
         
-        always@(posedge uart_rx_done or negedge reset_pll_n)
-        begin
-            if(!reset_pll_n)
-            begin
-                led_bit_reg = 6'b000000;
-            end
-            else
-            begin
-                case(uart_rx_data)
-                    6'h00:  led_bit_reg[0] = ~led_bit_reg[0];
-                    6'h01:  led_bit_reg[1] = ~led_bit_reg[1];
-                    6'h02:  led_bit_reg[2] = ~led_bit_reg[2];
-                    6'h03:  led_bit_reg[3] = ~led_bit_reg[3];
-                    6'h04:  led_bit_reg[4] = ~led_bit_reg[4];
-                    6'h05:  led_bit_reg[5] = ~led_bit_reg[5];
-                    default: ;
-                endcase
-            end
-        end
-    `endif
+        .uart_tx_data   (uart_tx_data),
+        .uart_tx_enable (uart_tx_enable),
+        
+        .uart_rx_data   (uart_rx_data),
+        .uart_rx_done   (uart_rx_done),
+        
+        .uart_tx_path   (uart_tx_path),
+        .uart_rx_path   (uart_rx_path)
+    );
     
-    `ifdef __LED_SD_TEST__
+    uart_test u_uart_test(
+        .clk_50m        (clk_50m),
+        .reset_n        (reset_sys_n),
+        
+        .uart_tx_data   (uart_tx_data),
+        .uart_tx_enable (uart_tx_enable),
+        
+        .uart_rx_data   (uart_rx_data),
+        .uart_rx_done   (uart_rx_done),
+        
+        .led            (led_uart_w)
+    );
+    
+    
+    // TODO
         wire            wr_start_en;
         wire    [31:0]  wr_sec_addr;
         wire    [15:0]  wr_data;
@@ -178,11 +160,9 @@ module top(
         u_led_alarm(
             .clock          (   clk_sd          ),
             .reset_n        (   reset_pll_n     ),
-            .led            (   led             ),
+            .led            (   led_sd_w        ),
             .sd_init_done   (   sd_init_done    ),
             .error_flag     (   error_flag      )
         );
         
-    `endif
-    
 endmodule

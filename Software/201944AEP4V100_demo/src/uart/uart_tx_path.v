@@ -1,5 +1,6 @@
 module uart_tx_path(
-	input               clk_in,
+	input wire          clk_in,
+    
 	input wire  [7:0]   uart_tx_data,
 	input wire          uart_tx_enable,
 	
