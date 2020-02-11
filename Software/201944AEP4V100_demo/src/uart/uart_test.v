@@ -1,4 +1,8 @@
-module uart_test(
+module uart_test
+#(
+    parameter CLK_FREQ = 32'd50_000_000
+)
+(
     input wire          clk_50m,
     input wire          reset_n,
     
@@ -18,7 +22,7 @@ module uart_test(
     /*  Timer  */
     timer
     #(
-        .CLK_DIV        (32'd50_000_000)
+        .CLK_FREQ       (CLK_FREQ)
     )
     u_timer
     (

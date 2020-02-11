@@ -1,18 +1,19 @@
-module uart_rx_path(
-	input wire          clk_in,
+module uart_rx_path
+#(
+    parameter CLK_FREQ  = 32'd50_000_000,
+    parameter UART_BAUD = 32'd115200
+)
+(
+    input wire          clk_in,
+        
+    output reg  [7:0]   uart_rx_data = 8'b0,
+    output reg          uart_rx_done = 1'b0,
+        
+    input wire          uart_rx_path
+);
     
-	output reg  [7:0]   uart_rx_data = 8'b0,
-	output reg          uart_rx_done = 1'b0,
-    
-	input wire          uart_rx_path
-
-    );
-    
-    parameter [31:0] CLOCK_FREQ             = 32'd50_000_000;
-    parameter [31:0] UART_BAUD              = 32'd115200;
-
-    parameter [31:0] BAUD_RATE_CNT		    = CLOCK_FREQ / UART_BAUD;	// baud rate
-    parameter [31:0] BAUD_RATE_CNT_HALF	    = BAUD_RATE_CNT / 2;		// half of baud rate
+    parameter [31:0] BAUD_RATE_CNT		    = CLK_FREQ / UART_BAUD; // baud rate
+    parameter [31:0] BAUD_RATE_CNT_HALF	    = BAUD_RATE_CNT / 2;    // half of baud rate
 
     reg [31:0]  baud_rate_counter = 32'b0;		    // baud rate counter
     reg         baud_bps = 1'b0;                    // read bit signal

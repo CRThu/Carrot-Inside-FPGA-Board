@@ -96,29 +96,6 @@ module sdram_test(
         else
             rd_valid <= rd_valid;
     end
-
-    
-    /////////////////////////////////////////
-    // for test///
-    /////////////////////////////////////
-    
-    // read data
-    always @(posedge clk_50m or negedge reset_n)
-    begin
-        if(!reset_n)
-            error_flag <= 1'b0;
-        else if(rd_valid && (rd_data == rd_cnt))
-            error_flag <= 1'b1;
-        else
-            error_flag <= error_flag;
-    end
-    
-    
-    /////////////////////////////////////////
-    // for test///
-    /////////////////////////////////////
-    
-    /*
     
     // read data
     always @(posedge clk_50m or negedge reset_n)
@@ -130,5 +107,5 @@ module sdram_test(
         else
             error_flag <= error_flag;
     end
-    */
+    
 endmodule 

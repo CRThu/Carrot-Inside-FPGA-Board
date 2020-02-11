@@ -1,35 +1,35 @@
 module sd_spi_controller(
-    input wire          clk_sd          ,
-    input wire          clk_sd_n        ,
-    input wire          reset_n         ,
+    input wire          clk_sd,
+    input wire          clk_sd_n,
+    input wire          reset_n,
     /*  SPI  */
-    input wire          sd_spi_miso     ,
-    output wire         sd_spi_clk      ,
-    output reg          sd_spi_cs       ,
-    output reg          sd_spi_mosi     ,
+    input wire          sd_spi_miso,
+    output wire         sd_spi_clk,
+    output reg          sd_spi_cs,
+    output reg          sd_spi_mosi,
     /*  Write  */
-    input wire          wr_start_en     ,   // start writing data
-    input wire  [31:0]  wr_sec_addr     ,   // write sector address
-    input wire  [15:0]  wr_data         ,   // write data
-    output wire         wr_busy         ,   // write busy
-    output wire         wr_req          ,   // write request
+    input wire          wr_start_en,    // start writing data
+    input wire  [31:0]  wr_sec_addr,    // write sector address
+    input wire  [15:0]  wr_data,        // write data
+    output wire         wr_busy,        // write busy
+    output wire         wr_req,         // write request
     /*  Read  */
-    input wire          rd_start_en     ,   // start reading data
-    input wire  [31:0]  rd_sec_addr     ,   // read sector address
-    output wire         rd_busy         ,   // read busy
-    output wire         rd_en           ,   // read enable
-    output wire [15:0]  rd_data         ,   // read data
+    input wire          rd_start_en,    // start reading data
+    input wire  [31:0]  rd_sec_addr,    // read sector address
+    output wire         rd_busy,        // read busy
+    output wire         rd_en,          // read enable
+    output wire [15:0]  rd_data,        // read data
 
-    output wire         sd_init_done        // sd initial done
+    output wire         sd_init_done    // sd initial done
 );
     
-    wire sd_spi_init_clk    ;           // low speed clk when initial
-    wire sd_spi_init_cs     ;           // cs when initial
-    wire sd_spi_init_mosi   ;           // mosi when initial
-    wire sd_spi_wr_cs       ;           // cs when write
-    wire sd_spi_wr_mosi     ;           // mosi when write
-    wire sd_spi_rd_cs       ;           // cs when read
-    wire sd_spi_rd_mosi     ;           // mosi when read
+    wire sd_spi_init_clk;               // low speed clk when initial
+    wire sd_spi_init_cs;                // cs when initial
+    wire sd_spi_init_mosi;              // mosi when initial
+    wire sd_spi_wr_cs;                  // cs when write
+    wire sd_spi_wr_mosi;                // mosi when write
+    wire sd_spi_rd_cs;                  // cs when read
+    wire sd_spi_rd_mosi;                // mosi when read
 
     // sd clk mux
     assign sd_spi_clk = ( !sd_init_done ) ? sd_spi_init_clk : clk_sd_n;

@@ -1,34 +1,34 @@
 `define TEST_SEC_ADDR 32'h2000
 
 module sd_spi_data_gen(
-    input wire          clk_sd          ,   // clock
-    input wire          reset_n         ,   // reset
-    input wire          sd_init_done    ,   // sd initial done
+    input wire          clk_sd,             // clock
+    input wire          reset_n,            // reset
+    input wire          sd_init_done,       // sd initial done
     /*  Write  */
-    input wire          wr_busy         ,   // write busy
-    input wire          wr_req          ,   // write request
-    output reg          wr_start_en     ,   // start writing data
-    output reg  [31:0]  wr_sec_addr     ,   // write sector address
-    output wire [15:0]  wr_data         ,   // write data
+    input wire          wr_busy,            // write busy
+    input wire          wr_req,             // write request
+    output reg          wr_start_en,        // start writing data
+    output reg  [31:0]  wr_sec_addr,        // write sector address
+    output wire [15:0]  wr_data,            // write data
     /*  Read  */
-    input wire          rd_en           ,   // read enable
-    input wire  [15:0]  rd_data         ,   // read data
-    output reg          rd_start_en     ,   // start reading data
-    output reg  [31:0]  rd_sec_addr     ,   // read sector address
+    input wire          rd_en,              // read enable
+    input wire  [15:0]  rd_data,            // read data
+    output reg          rd_start_en,        // start reading data
+    output reg  [31:0]  rd_sec_addr,        // read sector address
     
     output wire         error_flag          // sd error flag
 );
     
-    reg         sd_init_done_delay1 ;       // initial done signal delay
-    reg         sd_init_done_delay2 ;       
-    reg         wr_busy_delay0      ;       // write busy signal delay
-    reg         wr_busy_delay1      ;       
-    reg [15:0]  wr_data_buf         ;       // write data buffer
-    reg [15:0]  rd_comp_data        ;       // compare data
-    reg [8:0]   rd_correct_cnt      ;       // count correct data
+    reg         sd_init_done_delay1;        // initial done signal delay
+    reg         sd_init_done_delay2;       
+    reg         wr_busy_delay0;             // write busy signal delay
+    reg         wr_busy_delay1;       
+    reg [15:0]  wr_data_buf;                // write data buffer
+    reg [15:0]  rd_comp_data;               // compare data
+    reg [8:0]   rd_correct_cnt;             // count correct data
     
-    wire        pos_init_done       ;       // posedge of init_done for start writing signal
-    wire        neg_wr_busy         ;       // negedge of wr_busy for finishing writing data
+    wire        pos_init_done;              // posedge of init_done for start writing signal
+    wire        neg_wr_busy;                // negedge of wr_busy for finishing writing data
     
     
     assign pos_init_done = (~sd_init_done_delay2) & sd_init_done_delay1;

@@ -1,4 +1,9 @@
-module uart_controller(
+module uart_controller
+#(
+    parameter CLK_FREQ  = 32'd50_000_000,
+    parameter UART_BAUD = 32'd115200
+)
+(
     input wire          uart_clk_in,
     
 	input wire  [7:0]   uart_tx_data,
@@ -12,7 +17,13 @@ module uart_controller(
 );
     
     /*  UART_TX  */
-    uart_tx_path u_uart_tx_path(
+    uart_tx_path
+    #(
+        .CLK_FREQ       (CLK_FREQ),
+        .UART_BAUD      (UART_BAUD)
+    )
+    u_uart_tx_path
+    (
         .clk_in         (uart_clk_in),
         .uart_tx_data   (uart_tx_data),
         .uart_tx_enable (uart_tx_enable),
@@ -20,7 +31,13 @@ module uart_controller(
     );
         
     /*  UART_RX  */
-    uart_rx_path u_uart_rx_path(
+    uart_rx_path
+    #(
+        .CLK_FREQ       (CLK_FREQ),
+        .UART_BAUD      (UART_BAUD)
+    )
+    u_uart_rx_path
+    (
         .clk_in         (uart_clk_in),
         .uart_rx_path   (uart_rx_path),
         .uart_rx_data   (uart_rx_data),

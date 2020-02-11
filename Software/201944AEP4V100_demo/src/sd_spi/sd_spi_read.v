@@ -1,43 +1,43 @@
 module sd_spi_read(
-    input wire          clk_sd      ,
-    input wire          clk_sd_n    ,
-    input wire          reset_n     ,
+    input wire          clk_sd,
+    input wire          clk_sd_n,
+    input wire          reset_n,
     /*  SPI  */
-    input wire          sd_spi_miso ,
-    output reg          sd_spi_cs   ,
-    output reg          sd_spi_mosi ,
+    input wire          sd_spi_miso,
+    output reg          sd_spi_cs,
+    output reg          sd_spi_mosi,
     /*  Read  */
-    input wire          rd_start_en ,
-    input wire  [31:0]  rd_sec_addr ,
-    output reg  [15:0]  rd_data     ,
-    output reg          rd_busy     ,
+    input wire          rd_start_en,
+    input wire  [31:0]  rd_sec_addr,
+    output reg  [15:0]  rd_data,
+    output reg          rd_busy,
     output reg          rd_en       
 );
 
-    reg             rd_en_delay0;
-    reg             rd_en_delay1;
-    wire            pos_rd_en;
+    reg         rd_en_delay0;
+    reg         rd_en_delay1;
+    wire        pos_rd_en;
 
     // respond data
-    reg             res_en;
-    reg     [7:0]   res_data;
-    reg             res_flag;
-    reg     [5:0]   res_bit_cnt;
+    reg         res_en;
+    reg [7:0]   res_data;
+    reg         res_flag;
+    reg [5:0]   res_bit_cnt;
 
     // read
-    reg             rd_en_buf;
-    reg     [15:0]  rd_data_buf;
-    reg             rd_flag;
-    reg     [3:0]   rd_bit_cnt;
-    reg     [8:0]   rd_data_cnt;
-    reg             rd_finish_en;
+    reg         rd_en_buf;
+    reg [15:0]  rd_data_buf;
+    reg         rd_flag;
+    reg [3:0]   rd_bit_cnt;
+    reg [8:0]   rd_data_cnt;
+    reg         rd_finish_en;
 
     // command
-    reg     [3:0]   rd_fsm_state;
-    reg     [3:0]   rd_ctrl_cnt;
-    reg     [47:0]  cmd_rd;
-    reg     [5:0]   cmd_bit_cnt;
-    reg             rd_data_flag;
+    reg [3:0]   rd_fsm_state;
+    reg [3:0]   rd_ctrl_cnt;
+    reg [47:0]  cmd_rd;
+    reg [5:0]   cmd_bit_cnt;
+    reg         rd_data_flag;
 
     assign pos_rd_en = ( ~rd_en_delay1 ) & rd_en_delay0;
 
