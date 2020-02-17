@@ -5,6 +5,7 @@ module uart_controller
 )
 (
     input wire          uart_clk_in,
+    input wire          reset_n,
     
 	input wire  [7:0]   uart_tx_data,
 	input wire          uart_tx_enable,
@@ -24,7 +25,8 @@ module uart_controller
     )
     u_uart_tx_path
     (
-        .clk_in         (uart_clk_in),
+        .uart_tx_clk    (uart_clk_in),
+        .reset_n        (reset_n),
         .uart_tx_data   (uart_tx_data),
         .uart_tx_enable (uart_tx_enable),
         .uart_tx_path   (uart_tx_path)
@@ -38,7 +40,8 @@ module uart_controller
     )
     u_uart_rx_path
     (
-        .clk_in         (uart_clk_in),
+        .uart_rx_clk    (uart_clk_in),
+        .reset_n        (reset_n),
         .uart_rx_path   (uart_rx_path),
         .uart_rx_data   (uart_rx_data),
         .uart_rx_done   (uart_rx_done)

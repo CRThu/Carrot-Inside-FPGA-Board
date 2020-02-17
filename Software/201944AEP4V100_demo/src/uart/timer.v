@@ -1,6 +1,7 @@
 module timer
 #(
-    parameter CLK_FREQ = 32'd50_000_000
+    parameter CLK_FREQ = 32'd50_000_000,
+    parameter PPS_WIDTH = 32'd10
 )
 (
     input wire          clk_50m,
@@ -20,17 +21,23 @@ module timer
             second <= 16'd0;
             pps <= 1'b0;
         end
-        else if(clk_cnt >= CLK_FREQ)
+        else if(clk_cnt >= CLK_FREQ - 1)
         begin
             clk_cnt <= 32'd0;
             second <= second + 16'd1;
             pps <= 1'b1;
         end
-        else
+        else if(clk_cnt == PPS_WIDTH - 1)
         begin
             clk_cnt <= clk_cnt + 32'd1;
             second <= second;
             pps <= 1'b0;
+        end
+        else
+        begin
+            clk_cnt <= clk_cnt + 32'd1;
+            second <= second;
+            pps <= pps;
         end
     end
     

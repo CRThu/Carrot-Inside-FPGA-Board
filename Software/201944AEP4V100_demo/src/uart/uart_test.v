@@ -22,7 +22,8 @@ module uart_test
     /*  Timer  */
     timer
     #(
-        .CLK_FREQ       (CLK_FREQ)
+        .CLK_FREQ       (CLK_FREQ),
+        .PPS_WIDTH      (32'd10)
     )
     u_timer
     (

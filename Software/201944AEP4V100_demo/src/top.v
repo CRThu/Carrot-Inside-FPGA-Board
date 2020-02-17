@@ -30,7 +30,8 @@ module top(
 );
     
     parameter CLK_FREQ = 32'd50_000_000;
-    parameter UART_BAUD = 32'd115200;
+    //parameter UART_BAUD = 32'd115200;
+    parameter UART_BAUD = 32'd2000000;
     
     /*  PLL  */
     wire clk_50m;
@@ -116,6 +117,7 @@ module top(
     );
     
     /*  UART  */
+    /*
     uart_controller
     #(
         .CLK_FREQ       (CLK_FREQ),
@@ -123,6 +125,7 @@ module top(
     )
     u_uart_controller(
         .uart_clk_in    (clk_50m),
+        .reset_n        (reset_sys_n),
         
         .uart_tx_data   (uart_tx_data),
         .uart_tx_enable (uart_tx_enable),
@@ -150,6 +153,45 @@ module top(
         
         .led            (led_uart_w)
     );
+    */
+    
+    
+    
+    /*  UART FIFO  */
+    uart_tx_fifo_controller
+    #(
+        .CLK_FREQ       (CLK_FREQ),
+        .UART_BAUD      (UART_BAUD)
+    )
+    u_uart_tx_fifo_controller(
+        .reset_n        (reset_sys_n),
+        
+        .fifo_tx_clk    (clk_50m),
+        .fifo_tx_req    (uart_tx_enable),
+        .fifo_tx_data   (uart_tx_data),
+        .fifo_full      (),
+        
+        .uart_tx_clk    (clk_50m),
+        
+        .uart_tx_path   (uart_tx_path)
+    );
+    
+    uart_fifo_test
+    #(
+        .CLK_FREQ       (CLK_FREQ)
+    )
+    u_uart_fifo_test(
+        .clk_50m        (clk_50m),
+        .reset_n        (reset_sys_n),
+        
+        .fifo_tx_clk    (clk_50m),
+        .fifo_tx_req    (uart_tx_enable),
+        .fifo_tx_data   (uart_tx_data),
+        
+        .led            ()
+    );
+    
+    
     
     /*  SD SPI  */
     sd_spi_controller u_sd_spi_controller(
