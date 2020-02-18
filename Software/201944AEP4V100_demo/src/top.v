@@ -59,10 +59,11 @@ module top(
     `endif
     
     /*  UART  */
-    wire [7:0]  uart_tx_data;
-    wire        uart_tx_enable;
-    wire [7:0]  uart_rx_data;
-    wire        uart_rx_done;
+    wire        uart_tx_fifo_clk;
+    wire        uart_tx_fifo_req;
+    wire [7:0]  uart_tx_fifo_data;
+    //wire [7:0]  uart_rx_data;
+    //wire        uart_rx_done;
     
     /*  SD SPI  */
     wire        sd_wr_start_en;
@@ -115,80 +116,38 @@ module top(
         
         .led            (led_flow_w)
     );
-    
-    /*  UART  */
-    /*
-    uart_controller
-    #(
-        .CLK_FREQ       (CLK_FREQ),
-        .UART_BAUD      (UART_BAUD)
-    )
-    u_uart_controller(
-        .uart_clk_in    (clk_50m),
-        .reset_n        (reset_sys_n),
-        
-        .uart_tx_data   (uart_tx_data),
-        .uart_tx_enable (uart_tx_enable),
-        
-        .uart_rx_data   (uart_rx_data),
-        .uart_rx_done   (uart_rx_done),
-        
-        .uart_tx_path   (uart_tx_path),
-        .uart_rx_path   (uart_rx_path)
-    );
-    
-    uart_test
-    #(
-        .CLK_FREQ       (CLK_FREQ)
-    )
-    u_uart_test(
-        .clk_50m        (clk_50m),
-        .reset_n        (reset_sys_n),
-        
-        .uart_tx_data   (uart_tx_data),
-        .uart_tx_enable (uart_tx_enable),
-        
-        .uart_rx_data   (uart_rx_data),
-        .uart_rx_done   (uart_rx_done),
-        
-        .led            (led_uart_w)
-    );
-    */
-    
-    
-    
+
     /*  UART FIFO  */
-    uart_tx_fifo_controller
+    uart_fifo_controller
     #(
-        .CLK_FREQ       (CLK_FREQ),
-        .UART_BAUD      (UART_BAUD)
+        .CLK_FREQ           (CLK_FREQ),
+        .UART_BAUD          (UART_BAUD)
     )
-    u_uart_tx_fifo_controller(
-        .reset_n        (reset_sys_n),
+    u_uart_fifo_controller(
+        .uart_clk           (clk_50m),
+        .reset_n            (reset_sys_n),
         
-        .fifo_tx_clk    (clk_50m),
-        .fifo_tx_req    (uart_tx_enable),
-        .fifo_tx_data   (uart_tx_data),
-        .fifo_full      (),
+        .uart_tx_fifo_clk   (uart_tx_fifo_clk),
+        .uart_tx_fifo_req   (uart_tx_fifo_req),
+        .uart_tx_fifo_data  (uart_tx_fifo_data),
+        .uart_tx_fifo_full  (),
         
-        .uart_tx_clk    (clk_50m),
-        
-        .uart_tx_path   (uart_tx_path)
+        .uart_tx_path       (uart_tx_path)
     );
     
     uart_fifo_test
     #(
-        .CLK_FREQ       (CLK_FREQ)
+        .CLK_FREQ           (CLK_FREQ)
     )
     u_uart_fifo_test(
-        .clk_50m        (clk_50m),
-        .reset_n        (reset_sys_n),
+        .clk_50m            (clk_50m),
+        .reset_n            (reset_sys_n),
         
-        .fifo_tx_clk    (clk_50m),
-        .fifo_tx_req    (uart_tx_enable),
-        .fifo_tx_data   (uart_tx_data),
+        .uart_tx_fifo_clk   (uart_tx_fifo_clk),
+        .uart_tx_fifo_req   (uart_tx_fifo_req),
+        .uart_tx_fifo_data  (uart_tx_fifo_data),
         
-        .led            ()
+        .led                ()
     );
     
     

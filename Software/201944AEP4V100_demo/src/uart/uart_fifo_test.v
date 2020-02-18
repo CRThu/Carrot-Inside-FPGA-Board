@@ -6,9 +6,9 @@ module uart_fifo_test
     input wire          clk_50m,
     input wire          reset_n,
     
-    output wire         fifo_tx_clk,
-    output reg          fifo_tx_req,
-    output reg [7:0]    fifo_tx_data,
+    output wire         uart_tx_fifo_clk,
+    output reg          uart_tx_fifo_req,
+    output reg [7:0]    uart_tx_fifo_data,
     
     output reg  [5:0]   led
 );
@@ -17,12 +17,15 @@ module uart_fifo_test
     wire    [15:0]  timer_second;
     wire            timer_pps;
     
+    /*  UART TX  */
     reg             pps_delay0;
     reg             pps_delay1;
     wire            pps_recv_flag = pps_delay0 & (~pps_delay1);
     reg             fifo_write_flag;
     
     reg     [2:0]   fsm_state;
+    
+    assign uart_tx_fifo_clk = clk_50m;
     
     /*  Timer  */
     timer
@@ -39,10 +42,7 @@ module uart_fifo_test
         .pps            (timer_pps)
     );
     
-    /*  Send second to uart  */
-    assign fifo_tx_clk = clk_50m;
-    
-    always@(posedge clk_50m or negedge reset_n)
+    always@(posedge uart_tx_fifo_clk or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -56,7 +56,7 @@ module uart_fifo_test
         end
     end
     
-    always@(posedge clk_50m or negedge reset_n)
+    always@(posedge uart_tx_fifo_clk or negedge reset_n)
     begin
         if(!reset_n)
         begin
@@ -73,12 +73,12 @@ module uart_fifo_test
         end
     end
     
-    always@(posedge clk_50m or negedge reset_n)
+    always@(posedge uart_tx_fifo_clk or negedge reset_n)
     begin
         if(!reset_n)
         begin
-            fifo_tx_req <= 1'b0;
-            fifo_tx_data <= 8'b0;
+            uart_tx_fifo_req <= 1'b0;
+            uart_tx_fifo_data <= 8'b0;
             fsm_state <= 3'd0;
         end
         else if(fifo_write_flag)
@@ -86,32 +86,32 @@ module uart_fifo_test
             case(fsm_state)
                 3'd0:
                 begin
-                    fifo_tx_req <= 1'b1;
-                    fifo_tx_data <= timer_second[15:8];
+                    uart_tx_fifo_req <= 1'b1;
+                    uart_tx_fifo_data <= timer_second[15:8];
                     fsm_state <= fsm_state + 1'b1;
                 end
                 3'd1:
                 begin
-                    fifo_tx_req <= 1'b0;
-                    fifo_tx_data <= fifo_tx_data;
+                    uart_tx_fifo_req <= 1'b0;
+                    uart_tx_fifo_data <= uart_tx_fifo_data;
                     fsm_state <= fsm_state + 1'b1;
                 end
                 3'd2:
                 begin
-                    fifo_tx_req <= 1'b1;
-                    fifo_tx_data <= timer_second[7:0];
+                    uart_tx_fifo_req <= 1'b1;
+                    uart_tx_fifo_data <= timer_second[7:0];
                     fsm_state <= fsm_state + 1'b1;
                 end
                 3'd3:
                 begin
-                    fifo_tx_req <= 1'b0;
-                    fifo_tx_data <= fifo_tx_data;
+                    uart_tx_fifo_req <= 1'b0;
+                    uart_tx_fifo_data <= uart_tx_fifo_data;
                     fsm_state <= fsm_state + 1'b1;
                 end
                 3'd4:
                 begin
-                    fifo_tx_req <= fifo_tx_req;
-                    fifo_tx_data <= fifo_tx_data;
+                    uart_tx_fifo_req <= uart_tx_fifo_req;
+                    uart_tx_fifo_data <= uart_tx_fifo_data;
                     fsm_state <= 3'd0;
                 end
                 
@@ -120,8 +120,8 @@ module uart_fifo_test
         end
         else
         begin
-            fifo_tx_req <= 1'b0;
-            fifo_tx_data <= 8'b0;
+            uart_tx_fifo_req <= 1'b0;
+            uart_tx_fifo_data <= 8'b0;
             fsm_state <= 3'd0;
         end
     end

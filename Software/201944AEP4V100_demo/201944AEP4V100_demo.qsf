@@ -150,35 +150,46 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "pll:u_pll|altpll:altpll_component|pll_altpll:auto_generated|wire_pll1_clk[0]" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=49" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=49" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=49" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=173" -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=4096" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=4096" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_global_assignment -name VERILOG_FILE src/top.v
 set_global_assignment -name QIP_FILE src/pll.qip
 set_global_assignment -name VERILOG_FILE src/led_flow.v
 set_global_assignment -name VERILOG_FILE src/uart/uart_tx_path.v
 set_global_assignment -name VERILOG_FILE src/uart/uart_rx_path.v
-set_global_assignment -name VERILOG_FILE src/uart/uart_controller.v
-set_global_assignment -name VERILOG_FILE src/uart/timer.v
-set_global_assignment -name VERILOG_FILE src/uart/uart_test.v
 set_global_assignment -name QIP_FILE src/uart/uart_tx_fifo.qip
 set_global_assignment -name VERILOG_FILE src/uart/uart_tx_fifo_controller.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_fifo_controller.v
+set_global_assignment -name VERILOG_FILE src/uart/timer.v
+set_global_assignment -name VERILOG_FILE src/uart/uart_test.v
 set_global_assignment -name VERILOG_FILE src/uart/uart_fifo_test.v
 set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_init.v
 set_global_assignment -name VERILOG_FILE src/sd_spi/sd_spi_read.v
@@ -199,120 +210,109 @@ set_global_assignment -name SIGNALTAP_FILE sdram.stp
 set_global_assignment -name SIGNALTAP_FILE uart.stp
 set_global_assignment -name SIGNALTAP_FILE timer.stp
 set_global_assignment -name SIGNALTAP_FILE uart_fifo.stp
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "pll:u_pll|altpll:altpll_component|pll_altpll:auto_generated|wire_pll1_clk[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "uart_fifo_test:u_uart_fifo_test|fifo_write_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "uart_fifo_test:u_uart_fifo_test|pps_recv_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|pps" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[10]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[11]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[12]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[13]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[14]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[15]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[7]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[8]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[9]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fifo_rd_req" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_enable" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[7]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_send_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_tx_path" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "uart_fifo_test:u_uart_fifo_test|fifo_write_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "uart_fifo_test:u_uart_fifo_test|pps_recv_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|pps" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[10]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[11]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[12]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[13]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[14]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[15]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[7]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[8]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[9]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fifo_rd_req" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_enable" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[7]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_send_flag" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_tx_path" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=49" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=49" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=49" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=173" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=4096" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=4096" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_req" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_req" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[0]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[1]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[2]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[3]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[4]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[5]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[6]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "uart_fifo_test:u_uart_fifo_test|fifo_tx_data[7]" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "uart_fifo_test:u_uart_fifo_test|pps_recv_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fifo_rd_req" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_enable" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_send_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_tx_path" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "uart_fifo_test:u_uart_fifo_test|fifo_write_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|pps" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_req" -section_id auto_signaltap_0
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "uart_fifo_test:u_uart_fifo_test|pps_recv_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fifo_rd_req" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|fsm_state[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_enable" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|bit_send_status[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|send_byte[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_send_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "uart_fifo_controller:u_uart_fifo_controller|uart_tx_fifo_controller:u_uart_tx_fifo_controller|uart_tx_path:u_uart_tx_path|uart_tx_path" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "uart_fifo_test:u_uart_fifo_test|fifo_write_flag" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "uart_fifo_test:u_uart_fifo_test|fsm_state[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|pps" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[10]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[11]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[12]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[13]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[14]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[15]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[8]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "uart_fifo_test:u_uart_fifo_test|timer:u_timer|second[9]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[0]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[1]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[2]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[3]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[4]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[5]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[6]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_data[7]" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "uart_fifo_test:u_uart_fifo_test|uart_tx_fifo_req" -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name SLD_FILE db/uart_fifo_auto_stripped.stp
